@@ -1,7 +1,7 @@
 package com.example.seavusdemoproject.di
 
 import android.content.Context
-import com.example.seavusdemoproject.BaseApplication
+import com.example.seavusdemoproject.presentation.BaseApplication
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
