@@ -1,6 +1,9 @@
 package com.example.seavusdemoproject.di
 
 import android.content.Context
+import com.example.seavusdemoproject.data.remote.api.ApiService
+import com.example.seavusdemoproject.data.remote.repository.UsersRepositoryImpl
+import com.example.seavusdemoproject.domain.repository.UserRepository
 import com.example.seavusdemoproject.presentation.BaseApplication
 import dagger.Module
 import dagger.Provides
@@ -17,6 +20,12 @@ object AppModule {
     @Provides
     fun provideApplication(@ApplicationContext app: Context): BaseApplication {
         return app as BaseApplication
+    }
+
+    @Provides
+    @Singleton
+    fun provideUsersRepository(api: ApiService): UserRepository {
+        return UsersRepositoryImpl(api)
     }
 
 }
