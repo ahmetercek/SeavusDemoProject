@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.seavusdemoproject.R
 
 class UserDetailFragment : Fragment() {
@@ -14,7 +15,7 @@ class UserDetailFragment : Fragment() {
         fun newInstance() = UserDetailFragment()
     }
 
-    private lateinit var viewModel: UserDetailViewModel
+    private val viewModel: UserDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +26,6 @@ class UserDetailFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(UserDetailViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
