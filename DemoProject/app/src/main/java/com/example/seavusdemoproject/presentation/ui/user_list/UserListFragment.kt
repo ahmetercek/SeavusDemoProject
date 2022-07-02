@@ -14,7 +14,9 @@ import com.example.seavusdemoproject.R
 import com.example.seavusdemoproject.presentation.adapter.UserListRecyclerViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import android.text.Editable
+import androidx.navigation.Navigation
 import com.example.seavusdemoproject.domain.model.User
+import com.example.seavusdemoproject.presentation.ItemClickListener
 
 
 @AndroidEntryPoint
@@ -47,18 +49,27 @@ class UserListFragment : Fragment() {
         viewModel.users.observe(viewLifecycleOwner) {
             userList = it
             recyclerViewAdapter.setData(userList)
+            searchUser(String()) // Arrange filteredList state with emptyString.
         }
         viewModel.fetchUsers()
     }
 
     private fun initViews(){
+        // Set recycleView.
         recyclerView = requireView().findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             recyclerViewAdapter = UserListRecyclerViewAdapter()
+            recyclerViewAdapter.setItemClickListener(object : ItemClickListener{
+                override fun clickPosition(position: Int) {
+                    val selectedUser = filteredList[position]
+                    navigateDetailPage(selectedUser.id, selectedUser.name)
+                }
+            })
             adapter = recyclerViewAdapter
         }
 
+        // Set searchBox.
         editText = requireView().findViewById<EditText>(R.id.edit_text)
         editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
@@ -74,12 +85,13 @@ class UserListFragment : Fragment() {
     }
 
     private fun searchUser(query: String) {
-        if(query.isNullOrEmpty()){
-            recyclerViewAdapter.setData(userList)
-            return
-        }
-        val filteredList: List<User> = userList.filter{ user -> user.name.lowercase().contains(query.lowercase()) }.toList()
+        filteredList = userList.filter{ user -> user.name.lowercase().contains(query.lowercase()) }.toList()
         recyclerViewAdapter.setData(filteredList)
+    }
+
+    private fun navigateDetailPage(userId: Int, userName: String){
+        val action = UserListFragmentDirections.actionUserListFragmentToUserDetailFragment(userId, userName)
+        Navigation.findNavController(requireView()).navigate(action)
     }
 }
 

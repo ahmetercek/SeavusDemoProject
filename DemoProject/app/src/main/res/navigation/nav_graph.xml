@@ -22,5 +22,11 @@
         <action
             android:id="@+id/action_userDetailFragment_to_userListFragment"
             app:destination="@id/userListFragment" />
+        <argument
+            android:name="user_id"
+            app:argType="integer" />
+        <argument
+            android:name="user_name"
+            app:argType="string" />
     </fragment>
 </navigation>

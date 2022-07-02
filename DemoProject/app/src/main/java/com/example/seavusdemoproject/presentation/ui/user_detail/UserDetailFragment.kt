@@ -1,12 +1,13 @@
 package com.example.seavusdemoproject.presentation.ui.user_detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.seavusdemoproject.R
 
 class UserDetailFragment : Fragment() {
@@ -15,6 +16,7 @@ class UserDetailFragment : Fragment() {
         fun newInstance() = UserDetailFragment()
     }
 
+    private val args: UserDetailFragmentArgs by navArgs()
     private val viewModel: UserDetailViewModel by viewModels()
 
     override fun onCreateView(
@@ -27,6 +29,8 @@ class UserDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         // TODO: Use the ViewModel
+
+        requireView().findViewById<TextView>(R.id.userInfo).text = args.userName
     }
 
 }
