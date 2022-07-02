@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.seavusdemoproject.R
+import com.example.seavusdemoproject.presentation.adapter.UserListRecyclerViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +22,9 @@ class UserListFragment : Fragment() {
 
     private val viewModel: UserListViewModel by viewModels()
 
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerViewAdapter: UserListRecyclerViewAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,12 +35,22 @@ class UserListFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.fetchUsers()
+        initViews()
+
         viewModel.users.observe(viewLifecycleOwner) {
-
-            Log.d("UserListFragment_DEBUG", "UserList size: ${it.size}")
-            }
-
+            recyclerViewAdapter.setData(it)
         }
+        viewModel.fetchUsers()
     }
+
+    private fun initViews(){
+        recyclerView = requireView().findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            recyclerViewAdapter = UserListRecyclerViewAdapter()
+            adapter = recyclerViewAdapter
+        }
+
+    }
+}
 
