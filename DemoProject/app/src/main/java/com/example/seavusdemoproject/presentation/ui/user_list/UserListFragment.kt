@@ -14,6 +14,7 @@ import com.example.seavusdemoproject.R
 import com.example.seavusdemoproject.presentation.adapter.UserListRecyclerViewAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import android.text.Editable
+import android.widget.ProgressBar
 import androidx.navigation.Navigation
 import com.example.seavusdemoproject.domain.model.User
 import com.example.seavusdemoproject.presentation.ItemClickListener
@@ -33,6 +34,7 @@ class UserListFragment : Fragment() {
     private lateinit var recyclerViewAdapter: UserListRecyclerViewAdapter
     private lateinit var userList: List<User>
     private lateinit var filteredList: List<User>
+    private lateinit var loadingBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +52,7 @@ class UserListFragment : Fragment() {
             userList = it
             recyclerViewAdapter.setData(userList)
             searchUser(String()) // Arrange filteredList state with emptyString.
+            loadingBar.visibility = View.INVISIBLE
         }
         viewModel.fetchUsers()
     }
@@ -82,6 +85,8 @@ class UserListFragment : Fragment() {
                 searchUser(s.toString())
             }
         })
+
+        loadingBar = requireView().findViewById<ProgressBar>(R.id.loadingBar)
     }
 
     private fun searchUser(query: String) {
