@@ -14,7 +14,7 @@ import android.text.Editable
 import androidx.navigation.Navigation
 import com.example.seavusdemoproject.databinding.UserListFragmentBinding
 import com.example.seavusdemoproject.domain.model.User
-import com.example.seavusdemoproject.presentation.ItemClickListener
+import com.example.seavusdemoproject.presentation.listener.ItemClickListener
 
 
 @AndroidEntryPoint
@@ -66,7 +66,7 @@ class UserListFragment : Fragment() {
 
         // Set recycleView adapter
         recyclerViewAdapter = UserListRecyclerViewAdapter()
-        recyclerViewAdapter.setItemClickListener(object : ItemClickListener{
+        recyclerViewAdapter.setItemClickListener(object : ItemClickListener {
             override fun clickPosition(position: Int) {
                 // Navigate detail page with user info.
                 val selectedUser = filteredList[position]

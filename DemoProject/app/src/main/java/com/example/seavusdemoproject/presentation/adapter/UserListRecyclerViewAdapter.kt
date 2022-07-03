@@ -3,9 +3,10 @@ package com.example.seavusdemoproject.presentation.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.seavusdemoproject.databinding.LayoutUserListItemCellBinding
 import com.example.seavusdemoproject.domain.model.User
-import com.example.seavusdemoproject.presentation.ItemClickListener
+import com.example.seavusdemoproject.presentation.listener.ItemClickListener
 
 class UserListRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -58,6 +59,8 @@ class UserListRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
         fun bind(user: User){
             binding.userName.text = user.name
             binding.userEmail.text = user.email
+
+            Glide.with(itemView).load(user.photoUrl + ".png").into(binding.userPhoto)
         }
 
     }

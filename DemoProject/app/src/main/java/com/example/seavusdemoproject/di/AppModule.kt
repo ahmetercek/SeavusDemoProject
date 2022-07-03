@@ -2,9 +2,11 @@ package com.example.seavusdemoproject.di
 
 import android.content.Context
 import com.example.seavusdemoproject.data.remote.api.ApiService
+import com.example.seavusdemoproject.data.remote.repository.PhotoRepositoryImpl
 import com.example.seavusdemoproject.data.remote.repository.PostRepositoryImpl
 import com.example.seavusdemoproject.data.remote.repository.TodoRepositoryImpl
 import com.example.seavusdemoproject.data.remote.repository.UserRepositoryImpl
+import com.example.seavusdemoproject.domain.repository.PhotoRepository
 import com.example.seavusdemoproject.domain.repository.PostRepository
 import com.example.seavusdemoproject.domain.repository.TodoRepository
 import com.example.seavusdemoproject.domain.repository.UserRepository
@@ -42,6 +44,12 @@ object AppModule {
     @Singleton
     fun providePostRepository(api: ApiService): PostRepository {
         return PostRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun providePhotoRepository(api: ApiService): PhotoRepository {
+        return PhotoRepositoryImpl(api)
     }
 
 }

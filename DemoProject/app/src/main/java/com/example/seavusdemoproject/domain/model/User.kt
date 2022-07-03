@@ -1,6 +1,7 @@
 package com.example.seavusdemoproject.domain.model
 
-data class User(  val id: Int,
-                  val name: String,
-                  val username: String,
-                  val email: String,   )
+data class User(val id: Int,
+                val name: String,
+                val username: String,
+                val email: String,
+                var photoUrl: String)

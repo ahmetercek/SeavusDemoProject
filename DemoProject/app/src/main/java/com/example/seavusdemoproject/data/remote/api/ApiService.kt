@@ -1,5 +1,6 @@
 package com.example.seavusdemoproject.data.remote.api
 
+import com.example.seavusdemoproject.domain.model.Photo
 import com.example.seavusdemoproject.domain.model.Post
 import com.example.seavusdemoproject.domain.model.Todo
 import com.example.seavusdemoproject.domain.model.User
@@ -17,5 +18,8 @@ interface ApiService {
 
     @GET("/posts")
     suspend fun fetchPostsByUserId(@Query("userId") userId: Int) : Response<List<Post>>
+
+    @GET("/photos")
+    suspend fun fetchPhotoById(@Query("id") photoId: Int) : Response<List<Photo>>
 
 }
