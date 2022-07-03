@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.seavusdemoproject.R
 import com.example.seavusdemoproject.databinding.LayoutTodoListItemCellBinding
 import com.example.seavusdemoproject.domain.model.Todo
 
@@ -45,11 +46,11 @@ class TodoListRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
         fun bind(todo: Todo){
             binding.todoTitle.text = todo.title
             if (todo.completed){
-                binding.todoStatus.text = "Completed"
+                binding.todoStatus.text = itemView.context.getString(R.string.completed_text)
                 binding.todoStatus.setTextColor(Color.GREEN)
             }
             else {
-                binding.todoStatus.text = "Not Completed"
+                binding.todoStatus.text = itemView.context.getString(R.string.not_completed_text)
                 binding.todoStatus.setTextColor(Color.RED)
             }
         }

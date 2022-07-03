@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Search movie"
+        android:hint="@string/search_movie"
         android:visibility="invisible"/>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.seavusdemoproject.R
 import com.example.seavusdemoproject.databinding.UserDetailFragmentBinding
 import com.example.seavusdemoproject.domain.model.Post
 import com.example.seavusdemoproject.domain.model.Todo
@@ -52,7 +53,6 @@ class UserDetailFragment : Fragment() {
 
     private fun initViews(){
         binding.userName.text = args.userName
-        binding.listHeader.text = "Todos"
 
         binding.showTodos.setOnClickListener {
             showTodoList()
@@ -101,23 +101,23 @@ class UserDetailFragment : Fragment() {
     }
 
     private fun showTodoList(){
-        binding.listHeader.text = "Todos"
+        binding.listHeader.text = getString(R.string.todos_title)
         binding.recyclerView.adapter = todoRecyclerViewAdapter
     }
 
     private fun showPostList(){
-        binding.listHeader.text = "Posts"
+        binding.listHeader.text = getString(R.string.posts_title)
         binding.recyclerView.adapter = postRecyclerViewAdapter
     }
 
     private fun changeFavoriteStatus(isFavorite: Boolean){
         if(isFavorite){
-            binding.addUsertoFav.text = "Remove from Favorites"
+            binding.addUsertoFav.text = getString(R.string.remove_user_from_favorites)
             binding.addUsertoFav.setOnClickListener {
                 deleteUserFromFavorites()
             }
         } else {
-            binding.addUsertoFav.text = "Add user to Favorites"
+            binding.addUsertoFav.text = getString(R.string.add_user_to_favorites)
             binding.addUsertoFav.setOnClickListener {
                 addUserToFavorites()
             }
