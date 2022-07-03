@@ -1,21 +1,20 @@
 package com.example.seavusdemoproject.presentation.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.seavusdemoproject.R
+import com.example.seavusdemoproject.databinding.LayoutTodoListItemCellBinding
 import com.example.seavusdemoproject.domain.model.Todo
 
 class TodoListRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var items: List<Todo> = ArrayList()
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding = LayoutTodoListItemCellBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TodoItemViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_todo_list_item_cell, parent, false)
+            binding
         )
     }
 
@@ -40,15 +39,19 @@ class TodoListRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
 
     class TodoItemViewHolder
     constructor(
-        itemView: View
-    ): RecyclerView.ViewHolder(itemView){
-
-        private val todoTitle = itemView.findViewById<TextView>(R.id.todo_title)
-        private val todoStatus = itemView.findViewById<TextView>(R.id.todo_status)
+        val binding: LayoutTodoListItemCellBinding
+    ): RecyclerView.ViewHolder(binding.root){
 
         fun bind(todo: Todo){
-            todoTitle.text = todo.title
-            todoStatus.text = if (todo.completed)  "Completed" else "Not Completed"
+            binding.todoTitle.text = todo.title
+            if (todo.completed){
+                binding.todoStatus.text = "Completed"
+                binding.todoStatus.setTextColor(Color.GREEN)
+            }
+            else {
+                binding.todoStatus.text = "Not Completed"
+                binding.todoStatus.setTextColor(Color.RED)
+            }
         }
 
     }

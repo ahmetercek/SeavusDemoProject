@@ -5,15 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.seavusdemoproject.R
+import com.example.seavusdemoproject.databinding.UserDetailFragmentBinding
 import com.example.seavusdemoproject.domain.model.Post
 import com.example.seavusdemoproject.domain.model.Todo
 import com.example.seavusdemoproject.presentation.adapter.PostListRecyclerViewAdapter
@@ -27,25 +22,24 @@ class UserDetailFragment : Fragment() {
         fun newInstance() = UserDetailFragment()
     }
 
+    private var _binding: UserDetailFragmentBinding? = null
+    private val binding get() = _binding!!
+
     private val args: UserDetailFragmentArgs by navArgs()
     private val viewModel: UserDetailViewModel by viewModels()
 
-    private lateinit var userNameTextView: TextView
-    private lateinit var listHeaderTextView: TextView
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var showTodosButton: Button
-    private lateinit var showPostsButton: Button
     private lateinit var todoRecyclerViewAdapter: TodoListRecyclerViewAdapter
     private lateinit var postRecyclerViewAdapter: PostListRecyclerViewAdapter
     private lateinit var todoList: List<Todo>
     private lateinit var postList: List<Post>
-    private lateinit var loadingBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.user_detail_fragment, container, false)
+        _binding = UserDetailFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -57,18 +51,13 @@ class UserDetailFragment : Fragment() {
     }
 
     private fun initViews(){
-        userNameTextView = requireView().findViewById(R.id.user_name)
-        userNameTextView.text = args.userName
+        binding.userName.text = args.userName
+        binding.listHeader.text = "Todos"
 
-        listHeaderTextView = requireView().findViewById(R.id.list_header)
-        listHeaderTextView.text = "Todos"
-
-        showTodosButton = requireView().findViewById(R.id.showTodos)
-        showTodosButton.setOnClickListener {
+        binding.showTodos.setOnClickListener {
             showTodoList()
         }
-        showPostsButton = requireView().findViewById(R.id.showPost)
-        showPostsButton.setOnClickListener {
+        binding.showPost.setOnClickListener {
             showPostList()
         }
 
@@ -76,14 +65,9 @@ class UserDetailFragment : Fragment() {
         postRecyclerViewAdapter = PostListRecyclerViewAdapter()
 
         // Set recycleView.
-        recyclerView = requireView().findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.apply {
+        binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
-            //adapter = todoRecyclerViewAdapter
         }
-
-        loadingBar = requireView().findViewById<ProgressBar>(R.id.loadingBar)
-
     }
 
     private fun initObservers(){
@@ -92,7 +76,7 @@ class UserDetailFragment : Fragment() {
             todoList = response
             // sort todos item as first completed then not completed.
             todoRecyclerViewAdapter.setData(todoList.sortedByDescending { it.completed })
-            loadingBar.visibility = View.INVISIBLE
+            binding.loadingBar.visibility = View.INVISIBLE
         }
 
         viewModel.posts.observe(viewLifecycleOwner) {
@@ -109,12 +93,17 @@ class UserDetailFragment : Fragment() {
     }
 
     private fun showTodoList(){
-        listHeaderTextView.text = "Todos"
-        recyclerView.adapter = todoRecyclerViewAdapter
+        binding.listHeader.text = "Todos"
+        binding.recyclerView.adapter = todoRecyclerViewAdapter
     }
 
     private fun showPostList(){
-        listHeaderTextView.text = "Posts"
-        recyclerView.adapter = postRecyclerViewAdapter
+        binding.listHeader.text = "Posts"
+        binding.recyclerView.adapter = postRecyclerViewAdapter
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

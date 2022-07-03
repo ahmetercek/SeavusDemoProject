@@ -1,11 +1,9 @@
 package com.example.seavusdemoproject.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.seavusdemoproject.R
+import com.example.seavusdemoproject.databinding.LayoutPostListItemCellBinding
 import com.example.seavusdemoproject.domain.model.Post
 
 class PostListRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -14,8 +12,9 @@ class PostListRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding = LayoutPostListItemCellBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PostItemViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_post_list_item_cell, parent, false)
+            binding
         )
     }
 
@@ -40,15 +39,12 @@ class PostListRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
 
     class PostItemViewHolder
     constructor(
-        itemView: View
-    ): RecyclerView.ViewHolder(itemView){
-
-        private val postTitle = itemView.findViewById<TextView>(R.id.post_title)
-        private val postBody = itemView.findViewById<TextView>(R.id.post_body)
+        val binding: LayoutPostListItemCellBinding,
+    ): RecyclerView.ViewHolder(binding.root){
 
         fun bind(post: Post){
-            postTitle.text = post.title
-            postBody.text = post.body
+            binding.postTitle.text = post.title
+            binding.postBody.text = post.body
         }
 
     }

@@ -1,11 +1,9 @@
 package com.example.seavusdemoproject.presentation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.seavusdemoproject.R
+import com.example.seavusdemoproject.databinding.LayoutUserListItemCellBinding
 import com.example.seavusdemoproject.domain.model.User
 import com.example.seavusdemoproject.presentation.ItemClickListener
 
@@ -14,10 +12,10 @@ class UserListRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
     private var items: List<User> = ArrayList()
     private lateinit var mItemClickListener: ItemClickListener
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val binding = LayoutUserListItemCellBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UserItemViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.layout_user_list_item_cell, parent, false),
+            binding,
             mItemClickListener
         )
     }
@@ -47,12 +45,9 @@ class UserListRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
 
     class UserItemViewHolder
     constructor(
-        itemView: View,
+        val binding: LayoutUserListItemCellBinding,
         clickListener: ItemClickListener
-    ): RecyclerView.ViewHolder(itemView){
-
-        private val userName = itemView.findViewById<TextView>(R.id.user_name)
-        private val userEmail = itemView.findViewById<TextView>(R.id.user_email)
+    ): RecyclerView.ViewHolder(binding.root){
 
         init {
             itemView.setOnClickListener{
@@ -61,8 +56,8 @@ class UserListRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder
         }
 
         fun bind(user: User){
-            userName.text = user.name
-            userEmail.text = user.email
+            binding.userName.text = user.name
+            binding.userEmail.text = user.email
         }
 
     }
