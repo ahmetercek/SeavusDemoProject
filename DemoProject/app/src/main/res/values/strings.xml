@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SeavusDemoProject</string>
+    <string name="search_movie">Search a movie...</string>
+    <string name="todos_text">Todo\'s</string>
+    <string name="posts_text">Posts</string>
+    <string name="todos_title">TODOS</string>
+    <string name="posts_title">POSTS</string>
+    <string name="add_user_to_favorites">Add User to Favorites</string>
+    <string name="remove_user_from_favorites">Remove User from Favorites</string>
+    <string name="completed_text">Completed</string>
+    <string name="not_completed_text">Not Completed</string>
 </resources>
