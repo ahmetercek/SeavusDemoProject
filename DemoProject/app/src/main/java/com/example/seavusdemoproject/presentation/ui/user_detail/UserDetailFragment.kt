@@ -83,12 +83,20 @@ class UserDetailFragment : Fragment() {
             postList = it
             postRecyclerViewAdapter.setData(postList)
         }
+
+        viewModel.isFavorite.observe(viewLifecycleOwner) { isFavorite ->
+            changeFavoriteStatus(isFavorite)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            binding.loadingBar.visibility = View.INVISIBLE
+        }
     }
 
     private fun loadData(){
         viewModel.fetchTodosByUserId(args.userId)
         viewModel.fetchPostsByUserId(args.userId)
-
+        viewModel.checkUserFavorites(args.userId)
         showTodoList()
     }
 
@@ -100,6 +108,30 @@ class UserDetailFragment : Fragment() {
     private fun showPostList(){
         binding.listHeader.text = "Posts"
         binding.recyclerView.adapter = postRecyclerViewAdapter
+    }
+
+    private fun changeFavoriteStatus(isFavorite: Boolean){
+        if(isFavorite){
+            binding.addUsertoFav.text = "Remove from Favorites"
+            binding.addUsertoFav.setOnClickListener {
+                deleteUserFromFavorites()
+            }
+        } else {
+            binding.addUsertoFav.text = "Add user to Favorites"
+            binding.addUsertoFav.setOnClickListener {
+                addUserToFavorites()
+            }
+        }
+    }
+
+    private fun addUserToFavorites(){
+        binding.loadingBar.visibility = View.VISIBLE
+        viewModel.addUserToFavorites(args.userId)
+    }
+
+    private fun deleteUserFromFavorites(){
+        binding.loadingBar.visibility = View.VISIBLE
+        viewModel.deleteUserFromFavorites(args.userId)
     }
 
     override fun onDestroyView() {

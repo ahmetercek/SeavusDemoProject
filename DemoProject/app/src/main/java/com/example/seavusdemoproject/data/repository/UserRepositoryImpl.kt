@@ -1,5 +1,7 @@
-package com.example.seavusdemoproject.data.remote.repository
+package com.example.seavusdemoproject.data.repository
 
+import com.example.seavusdemoproject.data.local.dao.UserDao
+import com.example.seavusdemoproject.data.local.entity.UserEntity
 import com.example.seavusdemoproject.data.remote.api.ApiService
 import com.example.seavusdemoproject.domain.model.User
 import com.example.seavusdemoproject.domain.repository.UserRepository
@@ -11,7 +13,8 @@ import javax.inject.Singleton
 
 @Singleton
 class UserRepositoryImpl @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val userDao : UserDao
 ) : UserRepository {
 
     /*
@@ -24,6 +27,22 @@ class UserRepositoryImpl @Inject constructor(
         Dispatchers.IO) {
         val users = apiService.fetchUsers()
         users
+    }
+
+    override suspend fun addUserToFavorites(favUserId: Int) = withContext(
+        Dispatchers.IO) {
+        val userEntity = UserEntity(uid = favUserId, userId= favUserId)
+        userDao.insertUser(userEntity)
+    }
+
+    override suspend fun isUserFavorite(user_id: Int): Boolean  = withContext(
+        Dispatchers.IO) {
+        userDao.findById(user_id)
+    }
+
+    override suspend fun deleteUserFromFavorites(favUserId: Int)   = withContext(
+        Dispatchers.IO) {
+        userDao.deleteById(favUserId)
     }
 
 }

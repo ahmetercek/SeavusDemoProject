@@ -7,4 +7,10 @@ interface UserRepository {
 
     suspend fun fetchUsers(): Response<List<User>>
 
+    suspend fun addUserToFavorites(favUserId: Int)
+
+    suspend fun isUserFavorite(user_id : Int):  Boolean
+
+    suspend fun deleteUserFromFavorites(favUserId: Int)
+
 }

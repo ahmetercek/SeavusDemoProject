@@ -1,4 +1,4 @@
-package com.example.seavusdemoproject.data.remote.repository
+package com.example.seavusdemoproject.data.repository
 
 import com.example.seavusdemoproject.data.remote.api.ApiService
 import com.example.seavusdemoproject.domain.model.Post

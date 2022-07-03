@@ -1,11 +1,12 @@
 package com.example.seavusdemoproject.di
 
 import android.content.Context
+import com.example.seavusdemoproject.data.local.dao.UserDao
 import com.example.seavusdemoproject.data.remote.api.ApiService
-import com.example.seavusdemoproject.data.remote.repository.PhotoRepositoryImpl
-import com.example.seavusdemoproject.data.remote.repository.PostRepositoryImpl
-import com.example.seavusdemoproject.data.remote.repository.TodoRepositoryImpl
-import com.example.seavusdemoproject.data.remote.repository.UserRepositoryImpl
+import com.example.seavusdemoproject.data.repository.PhotoRepositoryImpl
+import com.example.seavusdemoproject.data.repository.PostRepositoryImpl
+import com.example.seavusdemoproject.data.repository.TodoRepositoryImpl
+import com.example.seavusdemoproject.data.repository.UserRepositoryImpl
 import com.example.seavusdemoproject.domain.repository.PhotoRepository
 import com.example.seavusdemoproject.domain.repository.PostRepository
 import com.example.seavusdemoproject.domain.repository.TodoRepository
@@ -30,8 +31,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideUserRepository(api: ApiService): UserRepository {
-        return UserRepositoryImpl(api)
+    fun provideUserRepository(api: ApiService, userDao: UserDao): UserRepository {
+        return UserRepositoryImpl(api, userDao)
     }
 
     @Provides
