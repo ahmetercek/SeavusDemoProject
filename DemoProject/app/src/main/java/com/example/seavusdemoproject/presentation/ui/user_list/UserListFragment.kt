@@ -88,6 +88,7 @@ class UserListFragment : Fragment() {
             recyclerViewAdapter.setData(userList)
             searchUser(String()) // Arrange filteredList state with emptyString.
             binding.loadingBar.visibility = View.INVISIBLE
+            binding.editText.visibility = View.VISIBLE
         }
     }
 
