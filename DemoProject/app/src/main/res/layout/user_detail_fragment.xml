@@ -1,14 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.ui.user_detail.UserDetailFragment">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/userInfo"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="User Detail Page" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/buttonLayout"
+        android:gravity="center" />
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/showPost"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:text="Todo's"
+            android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/showTodos"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:text="Posts"
+            android:textAllCaps="false"/>
+    </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>
