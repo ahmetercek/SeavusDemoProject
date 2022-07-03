@@ -2,7 +2,9 @@ package com.example.seavusdemoproject.di
 
 import android.content.Context
 import com.example.seavusdemoproject.data.remote.api.ApiService
-import com.example.seavusdemoproject.data.remote.repository.UsersRepositoryImpl
+import com.example.seavusdemoproject.data.remote.repository.TodoRepositoryImpl
+import com.example.seavusdemoproject.data.remote.repository.UserRepositoryImpl
+import com.example.seavusdemoproject.domain.repository.TodoRepository
 import com.example.seavusdemoproject.domain.repository.UserRepository
 import com.example.seavusdemoproject.presentation.BaseApplication
 import dagger.Module
@@ -24,8 +26,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideUsersRepository(api: ApiService): UserRepository {
-        return UsersRepositoryImpl(api)
+    fun provideUserRepository(api: ApiService): UserRepository {
+        return UserRepositoryImpl(api)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTodoRepository(api: ApiService): TodoRepository {
+        return TodoRepositoryImpl(api)
     }
 
 }
